@@ -85,7 +85,10 @@ public class NationalSolrEnterpriseQuery implements INationalSolrEnterpriseQuery
 		if (page.getNumberOfElements() > 0) {
 			for(HighlightWrapper<NationalEntBaseInfoBean> info : page) {
 				NationalEntBaseInfoBean bean = info.getBean();
-				bean.setEntName(info.getHighlights().get("entName"));
+				String highLight_entName = info.getHighlights().get("entName");
+				if (highLight_entName != null) {
+					bean.setEntName(highLight_entName);
+				}
 				list.add(bean);
 			}
 		}

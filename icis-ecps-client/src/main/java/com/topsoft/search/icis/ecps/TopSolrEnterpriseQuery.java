@@ -50,8 +50,8 @@ public class TopSolrEnterpriseQuery implements ITopSolrEnterpriseQuery, SolrCore
 			String regNo = regNoO == null ? null : regNoO.toString();
 			Object leRepO = input.getFieldValue("leRep");
 			String leRep = leRepO == null ? null : leRepO.toString();
-			Object opLocOrDomO = input.getFieldValue("opLocOrDom");
-			String opLocOrDom = opLocOrDomO == null ? null : opLocOrDomO.toString();
+			Object domOrOpLocO = input.getFieldValue("domOrOpLoc");
+			String domOrOpLoc = domOrOpLocO == null ? null : domOrOpLocO.toString();
 			Object regCapO = input.getFieldValue("regCap");
 			Float regCap = regCapO == null ? null : (Float) regCapO;
 			Object regCapCurNameO = input.getFieldValue("regCapCurName");
@@ -60,7 +60,7 @@ public class TopSolrEnterpriseQuery implements ITopSolrEnterpriseQuery, SolrCore
 			String industryPhyName = industryPhyNameO == null ? null : industryPhyNameO.toString();
 			Object estDateO = input.getFieldValue("estDate");
 			Date estDate = estDateO == null ? null : (Date) estDateO;
-			TopEntBaseInfoBean bean = new TopEntBaseInfoBean(id, entName, regNo, leRep, opLocOrDom, regCap, regCapCurName, industryPhyName, estDate);
+			TopEntBaseInfoBean bean = new TopEntBaseInfoBean(id, entName, regNo, leRep, domOrOpLoc, regCap, regCapCurName, industryPhyName, estDate);
 			return bean;
 		}
 		
@@ -310,9 +310,18 @@ public class TopSolrEnterpriseQuery implements ITopSolrEnterpriseQuery, SolrCore
 						List<TopEntBaseInfo> list = new ArrayList<TopEntBaseInfo>();
 					    for (HighlightWrapper<TopEntBaseInfoBean> info : input) {
 					    	TopEntBaseInfoBean bean = info.getBean();
-					    	bean.setEntName(info.getHighlights().get("entName"));
-					    	bean.setLeRep(info.getHighlights().get("leRep"));
-					    	bean.setOpLocOrDom(info.getHighlights().get("domOrOpLoc"));
+					    	String highLight_entName = info.getHighlights().get("entName");
+							if (highLight_entName != null) {
+								bean.setEntName(highLight_entName);
+							}
+							String highLight_leRep = info.getHighlights().get("leRep");
+							if (highLight_leRep != null) {
+								bean.setLeRep(highLight_leRep);
+							}
+							String highLight_domOrOpLoc = info.getHighlights().get("domOrOpLoc");
+							if (highLight_domOrOpLoc != null) {
+								bean.setOpLocOrDom(highLight_domOrOpLoc);
+							}
 					    	list.add(bean);
 					    }
 					    return list;
