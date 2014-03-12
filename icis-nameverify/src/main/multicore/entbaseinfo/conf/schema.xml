@@ -108,7 +108,7 @@
         
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
    <!--企业名称-->
-   <field name="entName" type="text_smartcn" indexed="true" stored="true"/>
+   <field name="entName" type="text_cjk" indexed="true" stored="true"/>
    <!--企业名称长度-->
    <field name="entNameLength" type="int" indexed="true" stored="false"/>
    <!--管辖单位名称-->
@@ -120,7 +120,7 @@
    <!--成立日期-->
    <field name="estDate" type="date" indexed="false" stored="true" docValues="true" default="1949-10-01T00:00:00Z"/>
    <!--经营场所 -->
-   <field name="domOrOpLoc" type="text_smartcn" indexed="true" stored="true"/>
+   <field name="domOrOpLoc" type="text_cjk" indexed="true" stored="true"/>
    <!--注册资本-->
    <field name="regCap" type="float" indexed="false" stored="true" />
    <!--注册资本等级  1(十万元以下) 2(十万到一百万) 3(一百万到一千万) 4(一千万以上)-->
@@ -427,6 +427,17 @@
       </analyzer>
     </fieldType>  
 
+	<!-- CJK bigram (see text_ja for a Japanese configuration using morphological analysis) -->
+    <fieldType name="text_cjk" class="solr.TextField" positionIncrementGap="100">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- normalize width before bigram, as e.g. half-width dakuten combine  -->
+        <filter class="solr.CJKWidthFilterFactory"/>
+        <!-- for any non-CJK -->
+        <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.CJKBigramFilterFactory"/>
+      </analyzer>
+    </fieldType>
  </types>
   
   <!-- Similarity is the scoring routine for each document vs. a query.

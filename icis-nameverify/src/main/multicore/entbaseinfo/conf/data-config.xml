@@ -31,7 +31,7 @@
 		            m.opLocDistrict,
 					m.entType,
 					m.entTypeName
-					from ICIS_MarPriPInfo m"
+					from ICIS_MarPriPInfo m order by length(trim(m.entName)) asc, m.estDate desc"
 			deltaImportQuery="select m.id,
 		            m.entName,
 		            length(trim(m.entName)) as entNameLength,

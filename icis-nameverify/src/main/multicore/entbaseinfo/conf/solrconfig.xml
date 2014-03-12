@@ -804,12 +804,9 @@
       -->
      <lst name="defaults">
        <str name="echoParams">explicit</str>
-       <int name="rows">10</int>
-       <str name="wt">json</str>
 	   <str name="df">text</str>
 	   <str name="indent">false</str>
-	   <str name="hl">true</str>
-	   <str name="hl.fl">entName,leRep,domOrOpLoc</str>
+	   <str name="q.op">AND</str>
      </lst>
     <!-- In addition to defaults, "appends" params can be specified
          to identify values which should be appended to the list of
@@ -1574,8 +1571,8 @@
                  default="true"
                  class="solr.highlight.HtmlFormatter">
         <lst name="defaults">
-          <str name="hl.simple.pre"><![CDATA[<font color=red>]]></str>
-          <str name="hl.simple.post"><![CDATA[</font>]]></str>
+          <str name="hl.simple.pre"><![CDATA[<em>]]></str>
+          <str name="hl.simple.post"><![CDATA[</em>]]></str>
         </lst>
       </formatter>
 
